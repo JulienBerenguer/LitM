@@ -54,7 +54,8 @@ bool ADrawer::AttachActor(AActor* ItemToAdd) {
 		// Destroy previous item if already had one
 		if (IsValid(Item)) {
 			// Item already in drawer IS NOT from Item class => destroy it
-			if (!UKismetMathLibrary::ClassIsChildOf(Item->StaticClass(), AItem::StaticClass())) {
+			if (!UKismetMathLibrary::ClassIsChildOf(Item->GetClass(), AItem::StaticClass())) {
+				UE_LOG(LogTemp, Warning, TEXT("Drawer.cpp : Actor attached of class '%s' is removed"), *Item->GetClass()->GetName());
 				Item->Destroy();
 			}
 			// Item already in drawer IS NOT from Item class => keep it
