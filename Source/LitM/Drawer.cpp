@@ -66,7 +66,7 @@ bool ADrawer::AttachActor(AActor* ItemToAdd) {
 		}
 		// Add the new item
 		Item = ItemToAdd;
-		Item->AttachToComponent(ItemScene, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::KeepRelative, EAttachmentRule::KeepRelative, true));
+		Item->AttachToComponent(ItemScene, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, EAttachmentRule::KeepWorld, true));
 		UE_LOG(LogTemp, Warning, TEXT("Drawer.cpp : Item attached"));
 		return true;
 	}
