@@ -35,6 +35,7 @@ void AFurniture::Init(){
 	Sound->VolumeMultiplier = AudioVolumeMultiplier;
 }
 
+// Permet d'appeler un event dans le blueprint
 void AFurniture::CallFurnitureEvent(EFurnitureEventType EventType) {
 	if (EnableFurnitureEvents) {
 		switch (EventType)
@@ -53,6 +54,7 @@ void AFurniture::CallFurnitureEvent(EFurnitureEventType EventType) {
 			break;
 		case EFurnitureEventType::Close:
 			OnClose();
+			OnCloseCPP();	// Pour enlever la valeur de départ
 			break;
 		default:
 			//
@@ -119,7 +121,10 @@ void AFurniture::OnInteraction()
 				if (EnableFurnitureEvents) OnOpen();	// Meuble qui s'ouvre
 			}
 			else {
-				if (EnableFurnitureEvents) OnClose();	// Meuble qui se ferme
+				if (EnableFurnitureEvents) {			// Meuble qui se ferme
+					OnClose();	
+					OnCloseCPP();	// Pour enlever la valeur de départ
+				}
 			}
 		}
 		IsUsed = true;
@@ -178,6 +183,11 @@ void AFurniture::FurnitureAction(float DeltaTime)
 	// A modifier dans les fonctions filles
 }
 
+// Lors de la fermeture au niveau du CPP
+void AFurniture::OnCloseCPP()
+{
+	// A modifier dans les fonctions filles
+}
 
 
 // ---- Functions in FurnitureAction() ----
