@@ -109,6 +109,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Object Functions")
 		void OnClose();
 
+	// Fonctions appelés lors des actions
+	//UFUNCTION(BlueprintCallable, Category = "Object Functions")
+		virtual void OnCloseCPP();
+
 	// A lier dans OnUnlock() pour appeler OnOpen() lorsqu'on veut utiliser le 'USoundManager* Sound' en deux temps
 	UFUNCTION(BlueprintCallable, Category = "Object Functions")
 		void SoundUnlockToOpen();

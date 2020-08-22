@@ -28,6 +28,9 @@ void ADrawer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Effectue la translation de départ
+	ObjectMesh->SetRelativeLocation(TranslationStart);
+
 	// Attache un objet aléatoire dans le tiroir (peut être override par un appel dans une class Wardrobe pour y placer un item)
 	// Actor aléatoire
 	int ActorIndexSelected = UKismetMathLibrary::RandomIntegerInRange(0, ActorList.Num() - 1);
@@ -84,11 +87,17 @@ void ADrawer::Tick(float DeltaTime)
 	FurnitureAction(DeltaTime);
 }*/
 
+// Activé à la fermeture du tiroir
+void ADrawer::OnCloseCPP() {
+	TranslationStart = FVector(0.0f, 0.0f, 0.0f);	// Enlève la translation de départ
+}
+
 void ADrawer::FurnitureAction(float DeltaTime)
 {
 	Super::FurnitureAction(DeltaTime);
 
 	// Translation
-	TranslationAction(TranslationOrigin, TranslationEnd, DeltaTime);
+	TranslationAction(TranslationOrigin + TranslationStart, TranslationEnd, DeltaTime);
+
 }
 

@@ -31,6 +31,9 @@ public:
 	// Translation : Valeur d'arrivée
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Object Options - Drawer")
 		FVector TranslationEnd = FVector(50.0f, 0.0f, 0.0f);
+	// Translation : Valeur de depart (seulement tiroir entrouvert)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Object Options - Drawer")
+		FVector TranslationStart = FVector(0.0f, 0.0f, 0.0f);
 
 	// Liste d'objets à ajouter aux tiroirs
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Object Options - Drawer")
@@ -48,6 +51,7 @@ protected:
 	// METHODS
 public:
 	virtual void FurnitureAction(float DeltaTime) override;
+	virtual void OnCloseCPP() override;
 	// Remplace un item
 	UFUNCTION(BlueprintCallable, Category = "Object Functions")
 		bool AttachActor(AActor* ItemToAdd);
