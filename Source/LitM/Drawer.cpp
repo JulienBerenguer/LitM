@@ -64,9 +64,14 @@ bool ADrawer::AttachActor(AActor* ItemToAdd) {
 			// Item already in drawer IS NOT from Item class => keep it
 			else return false;
 		}
+		// If the item is an AItem, then keep the world rotation and scale, if not then keep it relative (might go outside the drawer if spawn at game launch)
+		EAttachmentRule ItemAttachmentRule = EAttachmentRule::KeepRelative;		// Not an AItem
+		if (UKismetMathLibrary::ClassIsChildOf(ItemToAdd->GetClass(), AItem::StaticClass())) {
+			ItemAttachmentRule = EAttachmentRule::KeepWorld;					// Is an AItem
+		}
 		// Add the new item
 		Item = ItemToAdd;
-		Item->AttachToComponent(ItemScene, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, EAttachmentRule::KeepWorld, true));
+		Item->AttachToComponent(ItemScene, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, ItemAttachmentRule, ItemAttachmentRule, true));
 		UE_LOG(LogTemp, Warning, TEXT("Drawer.cpp : Item attached"));
 		return true;
 	}
